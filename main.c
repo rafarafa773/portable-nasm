@@ -13,7 +13,7 @@ ins lor(char *cmnd) {
 	if(strcmp(cmnd, "mov") == 0) return MOV;
 	if(strcmp(cmnd, "add") == 0) return ADD;
 	if(strcmp(cmnd, "db") == 0) return db;
-	/* keep ADD and CMP handling as originally requested (do not add them) */
+	/* i need to add more */
 	return error;
 }	
 		
@@ -23,7 +23,6 @@ int main(int argc, char *argv[]) {
 		printf("%s <filename>%c", argv[0], 10);
 		return 1;
 	}
-	/* removed the incomplete line; assign op after reading command */
 	FILE *cl = fopen(argv[1], "r");
 	char seecmd[50];
 	char value[50];
@@ -35,7 +34,7 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 	char ch;
-	while (fscanf(cl, "%s %[^,], %s", seecmd, name, value) == 3) {
+	while (fscanf(cl, "%s %[^,], %s", seecmd, name, value) == 3) { // beware, value is a string
 		ins op = lor(seecmd);
 		switch(op) {
 			case db:
@@ -52,7 +51,7 @@ int main(int argc, char *argv[]) {
 				printf("%d%c", temp1, 10);
 				break;
 			default:
-				printf("ixi molecada eu ainda não fiz isso%c", 10);
+				printf("error%c", 10);
 				fclose(cl);
 				return -1;
 		}
